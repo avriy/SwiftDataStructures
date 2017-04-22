@@ -2,5 +2,5 @@ import XCTest
 @testable import SwiftDataStructuresTests
 
 XCTMain([
-    testCase(SwiftDataStructuresTests.allTests),
+    testCase(LinkedListTests.allTests), testCase(QueueTests.allTests)
 ])
