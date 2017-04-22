@@ -1,7 +1,7 @@
 import XCTest
 @testable import SwiftDataStructures
 
-class SwiftDataStructuresTests: XCTestCase {
+class LinkedListTests: XCTestCase {
     
     func testExample() {
         
