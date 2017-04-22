@@ -1,16 +1,16 @@
 protocol QueueProtocol {
     associatedtype T
-    func enqueue(with value: T)
+    func enqueue(element value: T)
     func dequeue() -> T?
 }
 
 public final class Queue<T>: QueueProtocol {
     
-    private var head: Node<T>?
-    private weak var tail: Node<T>?
+    private var head: LinkedList.Node<T>?
+    private weak var tail: LinkedList.Node<T>?
     
-    func enqueue(with value: T) {
-        let node = Node(value: value)
+    func enqueue(element value: T) {
+        let node = LinkedList.Node(value: value)
         if head == nil {
             head = node
         } else {
@@ -32,13 +32,24 @@ public final class Queue<T>: QueueProtocol {
     var isEmpty: Bool {
         return head == nil
     }
+    
+    public init() {
+        
+    }
+    
+    public init(elements: T...) {
+        for element in elements {
+            enqueue(element: element)
+        }
+        
+    }
 }
 
-class ArrayQueue<T>: QueueProtocol {
+final class ArrayQueue<T>: QueueProtocol {
     
     private var array = [T]()
     
-    func enqueue(with value: T) {
+    func enqueue(element value: T) {
         array.append(value)
     }
     

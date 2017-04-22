@@ -25,7 +25,7 @@ extension QueueProtocol where T: Equatable {
     func testEnqueueDequeue(_ values: [T]) {
         
         for value in values {
-            enqueue(with: value)
+            enqueue(element: value)
         }
         
         for value in values {
