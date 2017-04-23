@@ -34,6 +34,25 @@ public class LinkedList {
             
             return result
         }
+        
+        func copy() -> Node {
+            var node: Node? = self
+            
+            let resultHead = Node(value: self.value)
+            var resultTail = resultHead
+            while true {
+                guard let value = node?.next?.value else {
+                    break
+                }
+                let new = Node(value: value)
+                resultTail.next = new
+                resultTail = new
+                node = node?.next
+            }
+            
+            return resultHead
+            
+        }
     }
 
 }
