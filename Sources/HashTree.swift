@@ -75,11 +75,9 @@ extension Node {
     func trace(from backtrace: [Node: Node]) -> [Node] {
         var result = [Node]()
         var pointer: Node? = self
-        while pointer != nil {
-            if let p = pointer {
-                result.append(p)
-                pointer = backtrace[p]
-            }
+        while let p = pointer {
+            result.append(p)
+            pointer = backtrace[p]
         }
         return result.reversed()
     }
