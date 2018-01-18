@@ -1,6 +1,6 @@
 public final class LinkedList<T>: CustomStringConvertible {
 	
-	private var root: Node<T>
+	private(set) var root: Node<T>
 	
 	init(value: T) {
 		root = Node(value: value)
@@ -42,24 +42,6 @@ public final class LinkedList<T>: CustomStringConvertible {
             self.next = next
         }
 
-        
-        static func list(from values: T...) -> Node? {
-            guard let firstValue = values.first else {
-                return nil
-            }
-            
-            let first = Node(value: firstValue)
-            var last = first
-            
-            for i in 1..<values.count {
-                let newNode = Node(value: values[i])
-                last.next = newNode
-                last = newNode
-            }
-            
-            return first
-        }
-        
         public var description: String {
             
             var result = ""
@@ -73,8 +55,10 @@ public final class LinkedList<T>: CustomStringConvertible {
         func reversed() -> Node {
             
             var previous: Node = self
-            var n: Node? = self.next
-            
+            var n: Node? = next
+			
+			previous.next = nil
+			
             while let thisIterationN = n {
                 
                 let nNext = n?.next
@@ -84,17 +68,14 @@ public final class LinkedList<T>: CustomStringConvertible {
             }
             
             return previous
-            
         }
     }
     
     public class Iterator<T>: IteratorProtocol {
         
-        let start: Node<T>
         var tail: Node<T>?
         
         init(start: Node<T>) {
-            self.start = start
             self.tail = start
         }
         
@@ -103,9 +84,7 @@ public final class LinkedList<T>: CustomStringConvertible {
             tail = tail?.next
             return result?.value
         }
-        
     }
-
 }
 
 extension LinkedList.Node: Sequence {

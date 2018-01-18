@@ -1,4 +1,4 @@
-protocol QueueProtocol {
+public protocol QueueProtocol {
     associatedtype T
     func enqueue(element value: T)
     func dequeue() -> T?
@@ -9,7 +9,7 @@ public final class Queue<T>: QueueProtocol {
     private var head: LinkedList<T>.Node<T>?
     private weak var tail: LinkedList<T>.Node<T>?
     
-    func enqueue(element value: T) {
+	public func enqueue(element value: T) {
         let node = LinkedList<T>.Node(value: value)
         if head == nil {
             head = node
@@ -19,7 +19,7 @@ public final class Queue<T>: QueueProtocol {
         tail = node
     }
     
-    func dequeue() -> T? {
+	public func dequeue() -> T? {
         guard let startNode = head else {
             return nil
         }
@@ -44,15 +44,18 @@ public final class Queue<T>: QueueProtocol {
     }
 }
 
-final class ArrayQueue<T>: QueueProtocol {
+public final class ArrayQueue<T>: QueueProtocol {
     
     private var array = [T]()
-    
-    func enqueue(element value: T) {
+	
+	public init() {
+	}
+	
+    public func enqueue(element value: T) {
         array.append(value)
     }
     
-    func dequeue() -> T? {
+    public func dequeue() -> T? {
         guard !array.isEmpty else { return nil }
         return array.removeFirst()
     }

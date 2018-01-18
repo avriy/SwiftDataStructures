@@ -1,5 +1,5 @@
 import XCTest
-@testable import SwiftDataStructures
+import SwiftDataStructures
 
 class HashTreeTests: XCTestCase {
     

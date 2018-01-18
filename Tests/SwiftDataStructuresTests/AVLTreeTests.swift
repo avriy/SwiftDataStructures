@@ -1,5 +1,5 @@
 import XCTest
-@testable import SwiftDataStructures
+import SwiftDataStructures
 
 class AVLTreeTests: XCTestCase {
 	
@@ -95,7 +95,7 @@ class AVLTreeTests: XCTestCase {
     }
 	
 	func testBuildingBigTree() {
-		_ =  AVLTree(values: Array(0...100_000))
+		_ =  AVLTree(values: Array(0...1_000_000))
 	}
 
 

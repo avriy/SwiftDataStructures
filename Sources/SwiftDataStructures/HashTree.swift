@@ -1,6 +1,6 @@
 public struct Node<Value: Hashable>: Hashable {
     
-    let value: Value
+    public let value: Value
     var children: Set<Node<Value>>
     
     public static func == (lhs: Node, rhs: Node) -> Bool {
@@ -11,17 +11,17 @@ public struct Node<Value: Hashable>: Hashable {
         return value.hashValue
     }
     
-    init(value: Value, children: [Node] = []) {
+    public init(value: Value, children: [Node] = []) {
         self.value = value
         self.children = Set(children)
     }
     
-    mutating func addChild(with value: Value) {
+    public mutating func addChild(with value: Value) {
         let childNode = Node(value: value)
         children.insert(childNode)
     }
     
-    mutating func addChild(_ child: Node) {
+    public mutating func addChild(_ child: Node) {
         children.insert(child)
     }
 }

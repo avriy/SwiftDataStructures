@@ -1,12 +1,12 @@
-final class AVLTree<ValueType: Comparable> {
+public final class AVLTree<ValueType: Comparable> {
 	
-	private(set) var root: Node<ValueType>
-	
-	init(value: ValueType) {
+	fileprivate private(set) var root: Node<ValueType>
+	fileprivate private(set) var size = 0
+	public init(value: ValueType) {
 		self.root = Node(value: value)
 	}
 	
-	init(values: ValueType...) {
+	public init(values: ValueType...) {
 		guard let firstValue = values.first else {
 			fatalError("array is empty")
 		}
@@ -16,7 +16,7 @@ final class AVLTree<ValueType: Comparable> {
 		}
 	}
 	
-	init(values: [ValueType]) {
+	public init(values: [ValueType]) {
 		guard let firstValue = values.first else {
 			fatalError("array is empty")
 		}
@@ -26,7 +26,7 @@ final class AVLTree<ValueType: Comparable> {
 		}
 	}
 	
-	final class Node<ValueType: Comparable> {
+	final fileprivate class Node<ValueType: Comparable> {
 		
 		let value: ValueType
 		var height = 0
@@ -84,29 +84,24 @@ final class AVLTree<ValueType: Comparable> {
 			height = max(leftSize, rightSize)
 		}
 		
-		func inorderTraversal(block: (ValueType) -> Void) {
+		fileprivate func inorderTraversal(block: (ValueType) -> Void) {
 			leftNode?.inorderTraversal(block: block)
 			block(value)
 			rightNode?.inorderTraversal(block: block)
 		}
 	}
 	
-	func inorderTrafersal(block: (ValueType) -> Void) {
+	public func inorderTrafersal(block: (ValueType) -> Void) {
 		return root.inorderTraversal(block: block)
 	}
 }
 
-private enum Turn: Int {
-	case right, left
-}
-
-
-enum Rotation: Int {
+private enum Rotation: Int {
 	case leftLeft, leftRight, rightLeft, rightRight
 }
 
 extension AVLTree.Node {
-	var rotationNeeded: Rotation? {
+	fileprivate var rotationNeeded: Rotation? {
 		if let ln = leftNode, balanceFactor > 1 {
 			if ln.balanceFactor > 0 {
 				return .leftLeft
@@ -132,7 +127,7 @@ extension AVLTree.Node {
 
 extension AVLTree: BinarySearchTree {
 	
-	func contains(value: ValueType) -> Bool {
+	public func contains(value: ValueType) -> Bool {
 		return root.contains(value: value)
 	}
 	
@@ -157,6 +152,7 @@ extension AVLTree: BinarySearchTree {
 				guard let left = iterator.leftNode else {
 					nodes.append(newNode)
 					iterator.leftNode = newNode
+					size += 1
 					iterator.height = max(iterator.height, 1)
 					shouldIterate = false
 					continue
@@ -166,6 +162,7 @@ extension AVLTree: BinarySearchTree {
 				guard let right = iterator.rightNode else {
 					nodes.append(newNode)
 					iterator.rightNode = newNode
+					size += 1
 					iterator.height = max(iterator.height, 1)
 					shouldIterate = false
 					continue

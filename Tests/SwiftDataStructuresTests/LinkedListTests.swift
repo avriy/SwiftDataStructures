@@ -1,5 +1,5 @@
 import XCTest
-@testable import SwiftDataStructures
+import SwiftDataStructures
 
 class LinkedListTests: XCTestCase {
     
@@ -9,10 +9,9 @@ class LinkedListTests: XCTestCase {
     }
     
     func testReverse() {
-        let array = Array(100...200)
+        let array = Array(1...5)
         let list = LinkedList(values: array)
-        let reversed = list.reversed()
-		
+		XCTAssertEqual(list.reversed().description, "5 -> 4 -> 3 -> 2 -> 1")
     }
 	
     static var allTests = [
