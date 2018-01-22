@@ -141,16 +141,22 @@ extension AVLTree: BinarySearchTree {
 		var iterator = root
 		var shouldIterate = true
 		
-		var nodes = [Node<ValueType>]()
+		var nodes = [Node<ValueType>](repeating: Node(value: value), count: root.height + 2)
+		var nodesCount = 0
+		
+		func append(node: Node<ValueType>) {
+			nodes[nodesCount] = node
+			nodesCount += 1
+		}
 		
 		while shouldIterate {
-			nodes.append(iterator)
+			append(node: iterator)
 			
 			if iterator.value == value {
 				return
 			} else if iterator.value > value {
 				guard let left = iterator.leftNode else {
-					nodes.append(newNode)
+					append(node: newNode)
 					iterator.leftNode = newNode
 					size += 1
 					iterator.height = max(iterator.height, 1)
@@ -160,7 +166,7 @@ extension AVLTree: BinarySearchTree {
 				iterator = left
 			} else {
 				guard let right = iterator.rightNode else {
-					nodes.append(newNode)
+					append(node: newNode)
 					iterator.rightNode = newNode
 					size += 1
 					iterator.height = max(iterator.height, 1)
@@ -171,13 +177,11 @@ extension AVLTree: BinarySearchTree {
 			}
 		}
 		
-		for i in 0..<nodes.count {
-			nodes[i].height = max(nodes[i].height, nodes.count - 1 - i)
-		}
-		
-		for i in 0..<(nodes.count-1) {
-			let parent = nodes[nodes.count - 2 - i]
-			let child = nodes[nodes.count - 1 - i]
+		for i in 0..<(nodesCount-1) {
+			let parent = nodes[nodesCount - 2 - i]
+			let child = nodes[nodesCount - 1 - i]
+			parent.height = max(parent.height, i + 1)
+			child.height = max(child.height, i)
 			guard !child.isBalanced else {
 				continue
 			}
@@ -188,7 +192,6 @@ extension AVLTree: BinarySearchTree {
 			}
 			parent.updateSize()
 		}
-
 		if !root.isBalanced {
 			root = rotate(node: root)
 			root.updateSize()
