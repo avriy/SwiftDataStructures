@@ -89,12 +89,7 @@ public final class LinkedList<T>: CustomStringConvertible {
 		return root.description
 	}
 	
-	private struct PlaceHolder<T> {
-		var value: T
-		var index: Int
-	}
-	
-    final class Node<T>: CustomStringConvertible {
+	final class Node<T>: CustomStringConvertible {
         let value: T
         var next: Node?
         
