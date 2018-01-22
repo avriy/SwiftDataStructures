@@ -193,9 +193,7 @@ extension AVLTree: BinarySearchTree {
 			root = rotate(node: root)
 			root.updateSize()
 		}
-
 	}
-	
 
 	private func rotate(node: Node<ValueType>) -> Node<ValueType> {
 		

@@ -1,13 +1,59 @@
 public final class LinkedList<T>: CustomStringConvertible {
 	
-	private(set) var root: Node<T>
+	private(set) var root: Node<T>?
 	
-	init(value: T) {
+	public init() {
+		root = nil
+	}
+	
+	public init(value: T) {
 		root = Node(value: value)
 	}
 	
 	private init(root: Node<T>) {
 		self.root = root
+	}
+	
+	public var isEmpty: Bool {
+		return root == nil
+	}
+	
+	public func insertFirst(_ value: T) {
+		let newNode = Node(value: value)
+		newNode.next = root
+		root = newNode
+	}
+	
+	public func append(value: T) {
+		let newNode = Node(value: value)
+		guard let root = root else {
+			return self.root = newNode
+		}
+		var p = root
+		while let next = p.next {
+			p = next
+		}
+		p.next = newNode
+	}
+	
+	public func dropLast() -> T? {
+		guard let root = root else {
+			return nil
+		}
+		var iterator = root, parent = root
+		while let next = iterator.next {
+			parent = iterator
+			iterator = next
+		}
+		let result = iterator.value
+		parent.next = nil
+		return result
+	}
+	
+	public func dropFirst() -> T? {
+		let result = root?.value
+		root = root?.next
+		return result
 	}
 	
 	public convenience init(values: [T]) {
@@ -16,7 +62,7 @@ public final class LinkedList<T>: CustomStringConvertible {
 		}
 		
 		self.init(value: firstValue)
-		var last = root
+		var last = root!
 		
 		for i in 1..<values.count {
 			let newNode = Node(value: values[i])
@@ -25,12 +71,27 @@ public final class LinkedList<T>: CustomStringConvertible {
 		}
 	}
 	
+	public func reverse() {
+		root = root?.reversed()
+	}
+	
 	public func reversed() -> LinkedList<T> {
+		guard let root = root else {
+			return LinkedList<T>()
+		}
 		return LinkedList(root: root.reversed())
 	}
 	
 	public var description: String {
+		guard let root = root else {
+			return "Empty linked list"
+		}
 		return root.description
+	}
+	
+	private struct PlaceHolder<T> {
+		var value: T
+		var index: Int
 	}
 	
     final class Node<T>: CustomStringConvertible {
@@ -70,7 +131,11 @@ public final class LinkedList<T>: CustomStringConvertible {
             return previous
         }
     }
-    
+	
+	deinit {
+		
+	}
+	
     public class Iterator<T>: IteratorProtocol {
         
         var tail: Node<T>?
