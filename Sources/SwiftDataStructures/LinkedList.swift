@@ -128,6 +128,22 @@ public final class LinkedList<T>: CustomStringConvertible {
     }
 	
 	deinit {
+		guard var p = root else {
+			return
+		}
+		var markers = [Node<T>]()
+		var index = 0
+		while let next = p.next {
+			index += 1
+			if index % 10_000 == 0 {
+				markers.append(next)
+			}
+			p = next
+		}
+		
+		for i in 0..<markers.count {
+			markers[markers.count - 1 - i].next = nil
+		}
 		
 	}
 	

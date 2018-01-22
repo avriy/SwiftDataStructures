@@ -112,7 +112,7 @@ class LinkedListTests: XCTestCase {
 	
 	func testLoad() {
 		let list = LinkedList<Int>()
-		for i in 0..<50_000 {
+		for i in 0..<10_000_000 {
 			list.insertFirst(i)
 		}
 		XCTAssert(true)
@@ -121,6 +121,8 @@ class LinkedListTests: XCTestCase {
     static var allTests = [
 		("testDescription", testDescription),
 		("testInsertRemoveFirst", testInsertRemoveFirst),
+		("testAppend", testAppend),
+		("testEmpty", testEmpty),
 		("testReverse", testReverse),
 		("testLoad", testLoad)
     ]
