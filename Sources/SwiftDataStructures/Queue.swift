@@ -1,10 +1,10 @@
-public protocol QueueProtocol {
+public protocol Queue {
     associatedtype T
     func enqueue(element value: T)
     func dequeue() -> T?
 }
 
-public final class Queue<T>: QueueProtocol {
+public final class LinkedListQueue<T>: Queue {
     
     private var head: LinkedList<T>.Node<T>?
     private weak var tail: LinkedList<T>.Node<T>?
@@ -34,7 +34,6 @@ public final class Queue<T>: QueueProtocol {
     }
     
     public init() {
-        
     }
     
     public init(elements: T...) {
@@ -44,7 +43,7 @@ public final class Queue<T>: QueueProtocol {
     }
 }
 
-public final class ArrayQueue<T>: QueueProtocol {
+public final class ArrayQueue<T>: Queue {
     
     private var array = [T]()
 	

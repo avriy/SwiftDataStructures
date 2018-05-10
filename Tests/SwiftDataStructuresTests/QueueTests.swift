@@ -5,7 +5,7 @@ class QueueTests: XCTestCase {
     
     func testEnqueueDequeueLinkedList() {
         let data = Array(0..<100_000)
-        let queue = Queue<Int>()
+        let queue = LinkedListQueue<Int>()
         queue.testEnqueueDequeue(data)
     }
     
@@ -21,7 +21,7 @@ class QueueTests: XCTestCase {
         ]
 }
 
-extension QueueProtocol where T: Equatable {
+extension Queue where T: Equatable {
     func testEnqueueDequeue(_ values: [T]) {
         
         for value in values {

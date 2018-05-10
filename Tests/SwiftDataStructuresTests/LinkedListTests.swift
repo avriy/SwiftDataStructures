@@ -56,8 +56,8 @@ class LinkedListTests: XCTestCase {
 		}
 		
 		do {
-			let list = LinkedList(values: [14.5, 15, 17.8])
-			XCTAssertEqual(list.dropLast(), 17.8)
+			let list = LinkedList(values: [14.5, 15.0, 17.8])
+			XCTAssertEqual(17.8, list.dropLast())
 			XCTAssertEqual(list.dropLast(), 15)
 			XCTAssertEqual(list.dropLast(), 14.5)
 		}

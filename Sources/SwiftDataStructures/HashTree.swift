@@ -40,7 +40,7 @@ extension Node {
     /// - Parameter value: value to search for
     /// - Returns: path of the nodes up to a node with a given value
     public func path(for value: Value) -> [Node]? {
-        let queue = Queue(elements: self)
+        let queue = LinkedListQueue(elements: self)
         var backTrace = [Node: Node]()
         var visited = Set<Node>()
         
@@ -60,7 +60,7 @@ extension Node {
     }
     
     func bfsTraversal(handler: (Node) -> Void) {
-        let queue = Queue(elements: self)
+        let queue = LinkedListQueue(elements: self)
         var visited = Set<Node>()
         
         while let node = queue.dequeue() {
